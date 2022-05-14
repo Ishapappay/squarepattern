@@ -2,7 +2,7 @@
 {
     public static void Main(string[] args ) 
     {
-        Console.WriteLine("asdfg");
+        Console.WriteLine("g");
       
    
         int no = readno();
