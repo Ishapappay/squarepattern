@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using static System.Net.Mime.MediaTypeNames;
 
 public class Program
 {
@@ -13,7 +14,7 @@ public class Program
         PatternType type = patterntype();
         return type;
     }
-    public static void Main(string[] args)
+    public static void Main(string[]? args)
     {
         PatternType type = GetPatternType();
 
@@ -34,8 +35,32 @@ public class Program
                 Isoseless(ptrn, number);
                 break;
         }
+        IsQuit();
+     
     }
 
+    public static void IsQuit()
+    {
+        Console.WriteLine("Do you want to quit? y/n");
+        var isquit = Console.ReadLine();
+        switch (isquit)
+        {
+            case "n":
+                Main(null);
+                break;
+            case "y":
+                Environment.Exit(-1);
+                break;
+            default:
+                Console.WriteLine("please enter y/n");
+                IsQuit();
+                break;
+
+
+
+        }
+
+    }
     public static void RightHanded(string ptrn, int number)
     {
 
@@ -48,10 +73,9 @@ public class Program
 
             for (int j = 0; j < i; j++)
             {
-                if (ptrn == "42")
+                if (ptrn == "*")
                 {
                     Console.Write("*");
-
                 }
                 else
                 {
