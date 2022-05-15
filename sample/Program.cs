@@ -120,10 +120,12 @@ public class Program
             for (int j = 1; j < 2 * i; j++)
             {
                 if (ptrn == "*")
-                { Console.Write("*"); }
+                { 
+                    Console.Write("*");
+                }
                 else
                 {
-                    Console.WriteLine(i);
+                    Console.Write(i);
                 }
             }
 
