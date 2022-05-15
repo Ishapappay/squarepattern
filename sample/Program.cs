@@ -1,54 +1,47 @@
-﻿public class Program
+﻿using System.ComponentModel;
+
+public class Program
 {
-    public static void Main(string[] args ) 
+    public static PatternType GetPatternType()
     {
-        Console.WriteLine("enter the type of pattern you want\n1.Left handed right angle triangle\n2.Right handed right angle triangle\n3.Isosless triangle");
+        Console.WriteLine("enter the type of pattern you want");
+        var patterns = Enum.GetValues(typeof(PatternType));
+        foreach (var pattern in patterns)
+        {
+            Console.WriteLine($"{(int)pattern} : {pattern}");
+        }
+        PatternType type = patterntype();
+        return type;
+    }
+    public static void Main(string[] args)
+    {
+        PatternType type = GetPatternType();
 
-
-        int type = patterntype();
         int number = readno();
-
         string ptrn = "*";
 
+        ptrn = patternletter();
 
-
-         ptrn = patternletter();
-
-        if(type==1)
+        switch (type)
         {
-            leftHanded(ptrn, number);
-           
+            case PatternType.LeftHandedTriangle:
+                LeftHanded(ptrn, number);
+                break;
+            case PatternType.RightHandedTriangle:
+                RightHanded(ptrn, number);
+                break;
+            case PatternType.IsocelusTriangle:
+                Isoseless(ptrn, number);
+                break;
         }
-        else if(type==2)
-        {
-          
-            rightHanded(ptrn, number);
-        }
-        else
-        {
-            isoseless(ptrn, number);
-
-        }
-       
-
-        // for(int i = 0; i < no; i++)
-      //  {
-      //     for(int j = no; j > i; j--)
-          //  {
-       //         Console.Write("*");
-          //  }
-         //  Console.WriteLine("");
-      //  }
-        
-        
     }
-   
-    public static void rightHanded(string ptrn,int number)
+
+    public static void RightHanded(string ptrn, int number)
     {
 
         for (int i = 0; i <= number; i++)
         {
-            for (int j = number; j >i; j--)
+            for (int j = number; j > i; j--)
             {
                 Console.Write(" ");
             }
@@ -58,7 +51,7 @@
                 if (ptrn == "42")
                 {
                     Console.Write("*");
-                 
+
                 }
                 else
                 {
@@ -72,7 +65,7 @@
 
         }
     }
-    public static void leftHanded(string ptrn, int number)
+    public static void LeftHanded(string ptrn, int number)
     {
         for (int i = 0; i <= number; i++)
         {
@@ -91,7 +84,7 @@
 
         }
     }
-    public static void isoseless(string ptrn, int number)
+    public static void Isoseless(string ptrn, int number)
     {
         for (int i = 1; i <= number; i++)
         {
@@ -104,7 +97,8 @@
             {
                 if (ptrn == "*")
                 { Console.Write("*"); }
-                else { 
+                else
+                {
                     Console.WriteLine(i);
                 }
             }
@@ -112,18 +106,18 @@
             Console.WriteLine();
         }
     }
-    public static int patterntype()
+    public static PatternType patterntype()
     {
-       
-            int type;
-        try
+        PatternType type=0;
+        bool exist = false;
+        while (!exist)
         {
-            type = Convert.ToInt32(Console.ReadLine());
-        }
-        catch (Exception)
-        {
-            Console.WriteLine("please enter the sl.no 1,2or3");
-            type= patterntype();
+            Console.WriteLine("please enter the sl.no 1,2 or 3");
+
+            var input = Console.ReadLine();
+            Int32.TryParse(input, out int inputToNumber);
+            exist = Enum.IsDefined(typeof(PatternType), Convert.ToInt32(inputToNumber));
+            type = (PatternType)Enum.Parse(typeof(PatternType), inputToNumber.ToString());
         }
         return type;
     }
@@ -134,9 +128,9 @@
         {
             Console.WriteLine("star pattern(*) or number pattern(1)");
             ptrn = Convert.ToString(Console.ReadLine());
-          //  Console.WriteLine(ptrn);
-        } 
-        while (IsAllowedChar());
+            //  Console.WriteLine(ptrn);
+        }
+        while (IsAllowedChar(ptrn));
 
         return ptrn;
     }
@@ -161,7 +155,11 @@
     {
         return ptrn != "*" && ptrn != "1";
     }
-    
+}
 
-    }
+public enum PatternType
+{
+    LeftHandedTriangle = 1,
+    RightHandedTriangle=2,
+    IsocelusTriangle=3
 }
