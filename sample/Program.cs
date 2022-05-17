@@ -34,9 +34,12 @@ public class Program
             case PatternType.IsocelusTriangle:
                 Isoseless(ptrn, number);
                 break;
+            case PatternType.Rectangle:
+                Rectangle(ptrn, number);
+                break;
         }
         IsQuit();
-     
+
     }
 
     public static void IsQuit()
@@ -120,7 +123,7 @@ public class Program
             for (int j = 1; j < 2 * i; j++)
             {
                 if (ptrn == "*")
-                { 
+                {
                     Console.Write("*");
                 }
                 else
@@ -132,13 +135,31 @@ public class Program
             Console.WriteLine();
         }
     }
+    public static void Rectangle(string ptrn, int number)
+    {
+        for(int i = 1; i <= number; i++)
+        {
+            for (int j=1; j <= number; j++)
+            {
+                if (ptrn == "*")
+                {
+                    Console.Write("*");
+                }
+                else
+                {
+                    Console.Write(i*j+" ");
+                }
+            }
+            Console.WriteLine("");
+        }
+    }
     public static PatternType patterntype()
     {
-        PatternType type=0;
+        PatternType type = 0;
         bool exist = false;
         while (!exist)
         {
-            Console.WriteLine("please enter the sl.no 1,2 or 3");
+            Console.WriteLine("please enter the sl.no 1,2,3 or 4");
 
             var input = Console.ReadLine();
             Int32.TryParse(input, out int inputToNumber);
@@ -186,6 +207,7 @@ public class Program
 public enum PatternType
 {
     LeftHandedTriangle = 1,
-    RightHandedTriangle=2,
-    IsocelusTriangle=3
+    RightHandedTriangle = 2,
+    IsocelusTriangle = 3,
+    Rectangle = 4
 }
